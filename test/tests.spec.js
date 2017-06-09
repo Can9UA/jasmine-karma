@@ -55,9 +55,10 @@ describe("Spy", function () {
 
   // createSpy
   it("создает фальшивую функцию", function () {
-    const concat = jasmine.createSpy('CONCAT');
+    let concat = jasmine.createSpy('concat');
     concat("one", "two");
-    expect(concat.identity).toEqual('CONCAT'); // есть имя для идентификации
+    expect(concat.and.identity()).toEqual('concat'); // есть имя для идентификации
+    expect(concat).toHaveBeenCalled();
     expect(concat).toHaveBeenCalledWith("one", "two");
     expect(concat.calls.count()).toEqual(1);
   });
@@ -69,7 +70,7 @@ describe("Spy", function () {
     expect(button.click).toBeDefined();
     expect(button.click).toHaveBeenCalled();
     expect(button.setTitle).toHaveBeenCalledWith("Help");
-    return expect(button.getTitle).not.toHaveBeenCalled();
+    expect(button.getTitle).not.toHaveBeenCalled();
   });
 
   it("проверяет тип", function() {
@@ -83,7 +84,7 @@ describe("Время", function() {
   let callback = null;
   beforeEach(function() {
     callback = jasmine.createSpy('TIMER');
-    return jasmine.clock().install();
+    jasmine.clock().install();
   });
   it("вызывает timeout синхронно", function() {
     setTimeout(() => callback(), 100);
