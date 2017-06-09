@@ -1,0 +1,3 @@
+function returnTry() {
+  return true;
+}
